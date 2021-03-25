@@ -63,6 +63,9 @@
       "Type": "CommaDelimitedList",
       "Description": "Comma-delimited list of three VPC availability zones in which nodes are created.",
       "Default": "eu-west-1a,eu-west-1b,eu-west-1c"
+    },
+    "UserData": {
+      "Type": "String"
     }
   },
   "Resources": {
@@ -659,22 +662,7 @@
             ]
           }
         ],
-        "UserData": {
-          "Fn::Base64": {
-            "Fn::Join": [
-              "",
-              [
-                "#!/usr/bin/bash\n",
-                "sudo apt-get -y update\n",
-                "sudo apt-get -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common\n",
-                "sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg\n",
-                "sudo echo \\\n  \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \\\n  $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null\n",
-                "sudo apt-get -y update\\n\",\n",
-                "sudo apt-get -y install docker-ce docker-ce-cli containerd.io\n"
-              ]
-            ]
-          }
-        },
+        "UserData" : { "Ref" : "UserData" },
         "Tags": [
           {
             "Key": "Name",
@@ -796,22 +784,7 @@
             "Ref": "NodeDebianSecurityGroup"
           }
         ],
-        "UserData": {
-          "Fn::Base64": {
-            "Fn::Join": [
-              "",
-              [
-                "#!/usr/bin/bash\n",
-                "sudo apt-get -y update\n",
-                "sudo apt-get -y install apt-transport-https ca-certificates curl gnupg-agent software-properties-common\n",
-                "sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg\n",
-                "sudo echo \\\n  \"deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \\\n  $(lsb_release -cs) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null\n",
-                "sudo apt-get -y update\\n\",\n",
-                "sudo apt-get -y install docker-ce docker-ce-cli containerd.io\n"
-              ]
-            ]
-          }
-        }
+        "UserData" : { "Ref" : "UserData" }
       }
     }
   },
