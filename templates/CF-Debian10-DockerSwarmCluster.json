@@ -44,10 +44,10 @@
     },
     "ClusterSize": {
       "Type": "Number",
-      "Default": "3",
-      "MinValue": "3",
+      "Default": "2",
+      "MinValue": "2",
       "MaxValue": "6",
-      "Description": "Number of nodes in the Debian cluster (3-12)."
+      "Description": "Number of nodes in the Debian cluster"
     },
     "AllowSSHFrom": {
       "Type": "String",
@@ -732,8 +732,8 @@
         "LaunchConfigurationName": {
           "Ref": "DebianServerLc"
         },
-        "MinSize": "3",
-        "MaxSize": "12",
+        "MinSize": "2",
+        "MaxSize": "6",
         "DesiredCapacity": {
           "Ref": "ClusterSize"
         },
