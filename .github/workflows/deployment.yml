@@ -1,4 +1,4 @@
-name: Execute nc Command via SSH
+name: Deployment
 
 on:
   push:
@@ -22,7 +22,6 @@ jobs:
 
       - name: Install ssh key
         run: |
-          install -m 600 -D /dev/null ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H sith-1.serioplast.com > ~/.ssh/known_hosts
         
