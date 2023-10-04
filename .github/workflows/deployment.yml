@@ -22,12 +22,10 @@ jobs:
 
       - name: Install ssh key
         run: |
-          mkdir -p ~/.ssh/
-          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
-          chmod 600 ~/.ssh/id_rsa
-          cd ~/.ssh/
-          cat id_rsa
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ls -la
+          ssh-keyscan -p 10022 -H sith-1.serioplast.com > ~/.ssh/known_hosts
         
       - name: Connect to server and deploy
         run: ssh -p 10022 admin@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
