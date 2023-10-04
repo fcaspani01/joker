@@ -22,6 +22,7 @@ jobs:
 
       - name: Install ssh key
         run: |
+          touch ~/.ssh/id_rsa
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           ssh-keyscan -H sith-1.serioplast.com > ~/.ssh/known_hosts
         
