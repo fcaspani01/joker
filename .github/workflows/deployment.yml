@@ -6,17 +6,17 @@ on:
       - main
 
 jobs:
-  execute-nc:
+  execute-deployment:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: 🔎 Check IP
+      - name: 🔎 Get Public IP
         run: curl https://api.ipify.org
 
-      - name: Test IT networking 
+      - name: Test networking between Github and SITH
         run: |
           nc -v -z sith-1.serioplast.com 10022
 
@@ -28,8 +28,8 @@ jobs:
           ls -la
           ssh-keyscan -p 10022 -H sith-1.serioplast.com > ~/.ssh/known_hosts
         
-      - name: Connect to server and deploy
-        run: ssh -p 10022 administrator@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
+      - name: Connect to server and deploy docker compose
+        run: ssh -p 10022 administrator@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker compose up --build -d && exit"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
