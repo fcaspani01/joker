@@ -29,7 +29,7 @@ jobs:
           ssh-keyscan -p 10022 -H sith-1.serioplast.com > ~/.ssh/known_hosts
         
       - name: Connect to server and deploy
-        run: ssh -p 10022 admin@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
+        run: ssh -p 10022 administrator@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
