@@ -27,7 +27,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
         
       - name: Connect to server and deploy
-        run: ssh admin@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
+        run: ssh -p 10022 admin@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
 
       - name: Cleanup
         run: rm -rf ~/.ssh
