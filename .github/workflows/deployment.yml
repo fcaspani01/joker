@@ -1,0 +1,33 @@
+name: Execute nc Command via SSH
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  execute-nc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: 🔎 Check IP
+        run: curl https://api.ipify.org
+
+      - name: Test IT networking 
+        run: |
+          nc -v -z sith-1.serioplast.com 10022
+
+      - name: Install ssh key
+        run: |
+          install -m 600 -D /dev/null ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          ssh-keyscan -H sith-1.serioplast.com > ~/.ssh/known_hosts
+        
+      - name: Connect to server and deploy
+        run: ssh admin@sith-1.serioplast.com "cd /home/administrator/apps/desco-users && git pull && docker-compose up --build -d && exit"
+
+      - name: Cleanup
+        run: rm -rf ~/.ssh
